@@ -1,0 +1,14 @@
+﻿Build started 05.02.2017 23:18:17.
+     1>Project "C:\Users\qqq\Documents\Visual Studio 2013\Projects\part4\part4\part4.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         F:\Program Files\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\part4.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt part4.cpp
+         part4.cpp
+       Link:
+         F:\Program Files\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\qqq\Documents\Visual Studio 2013\Projects\part4\Debug\part4.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\qqq\Documents\Visual Studio 2013\Projects\part4\Debug\part4.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\qqq\Documents\Visual Studio 2013\Projects\part4\Debug\part4.lib" /MACHINE:X86 Debug\part4.obj
+         Debug\stdafx.obj
+         part4.vcxproj -> C:\Users\qqq\Documents\Visual Studio 2013\Projects\part4\Debug\part4.exe
+     1>Done Building Project "C:\Users\qqq\Documents\Visual Studio 2013\Projects\part4\part4\part4.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.88
