@@ -174,6 +174,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	for (int i = 0; i < N; i++) {
 		cout << vectorMaxMinusMin[i] << " ";
 	}
+	delete[] vectorMaxMinusMin;
 
 	//28
 	int *vectorMinByRows = getMinVectorByRows(A, N);
@@ -183,6 +184,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		sum += A[rowNumber][i];
 	}
 	cout << "\nСумма элементов строки, в которой расположен наименьший элемент = " << sum;
+	delete[] vectorMinByRows;
 
 	//29
 	int *vectorMinByCols = getMinVectorByCols(A, N);
@@ -192,6 +194,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		sum += A[i][colNumber];
 	}
 	cout << "\nСумма элементов столбца, в котором расположен наименьший элемент = " << sum << endl;
+	delete[] vectorMinByCols;
 
 	//30
 	changeRowsMinMax(A, N);
