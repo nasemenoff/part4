@@ -24,13 +24,15 @@ void printMatrix(int **matrix, int N) {
 	}
 }
 
-int* getMinVectorByRows(int **matrix, int N) {
+int* getMinVector(int **matrix, int N, bool byRows) {
 	int *vector = new int[N];
 	for (int i = 0; i < N; i++) {
 		int min = INT_MAX;
 		for (int j = 0; j < N; j++) {
-			if (matrix[i][j] < min) {
-				min = matrix[i][j];
+			int m = 0;
+			byRows ? m = matrix[i][j] : m = matrix[j][i];
+			if (m < min) {
+				min = m;
 			}
 		}
 		vector[i] = min;
@@ -38,30 +40,18 @@ int* getMinVectorByRows(int **matrix, int N) {
 	return vector;
 }
 
-int* getMaxVectorByRows(int **matrix, int N) {
+int* getMaxVector(int **matrix, int N, bool byRows) {
 	int *vector = new int[N];
 	for (int i = 0; i < N; i++) {
 		int max = INT_MIN;
 		for (int j = 0; j < N; j++) {
-			if (matrix[i][j] > max) {
-				max = matrix[i][j];
+			int m = 0;
+			byRows ? m = matrix[i][j] : m = matrix[j][i];
+			if (m > max) {
+				max = m;
 			}
 		}
 		vector[i] = max;
-	}
-	return vector;
-}
-
-int* getMinVectorByCols(int **matrix, int N) {
-	int *vector = new int[N];
-	for (int i = 0; i < N; i++) {
-		int min = INT_MAX;
-		for (int j = 0; j < N; j++) {
-			if (matrix[j][i] < min) {
-				min = matrix[j][i];
-			}
-		}
-		vector[i] = min;
 	}
 	return vector;
 }
@@ -76,61 +66,44 @@ double average(int *vector, int N) {
 
 int* getVectorMaxMinusMin(int **matrix, int N) {
 	int *vector = new int[N];
+	int *vectorMin = getMinVector(matrix, N, 1);
+	int *vectorMax = getMaxVector(matrix, N, 1);
 	for (int i = 0; i < N; i++) {
-		int min = INT_MAX, max = INT_MIN;
-		for (int j = 0; j < N; j++) {
-			if (matrix[i][j] < min) {
-				min = matrix[i][j];
-			}
-			if (matrix[i][j] > max) {
-				max = matrix[i][j];
-			}
-		}
-		vector[i] = max - min;
+		vector[i] = vectorMax[i] - vectorMin[i];
 	}
+	delete[] vectorMin;
+	delete[] vectorMax;
 	return vector;
 }
 
-int getNumberOfRowWithMinValue(int *vector, int N) {
-	int rowNumber = 0;
+int getNumberOfLineWithMinValue(int *vector, int N) {
+	int lineNumber = 0;
 	int min = INT_MAX;
 	for (int i = 0; i < N; i++) {
 		if (vector[i] < min) {
 			min = vector[i];
-			rowNumber = i;
+			lineNumber = i;
 		}
 	}
-	return rowNumber;
+	return lineNumber;
 }
 
-int getNumberOfColWithMinValue(int *vector, int N) {
-	int colNumber = 0;
-	int min = INT_MAX;
-	for (int i = 0; i < N; i++) {
-		if (vector[i] < min) {
-			min = vector[i];
-			colNumber = i;
-		}
-	}
-	return colNumber;
-}
-
-int getNumberOfRowWithMaxValue(int *vector, int N) {
-	int rowNumber = 0;
+int getNumberOfLineWithMaxValue(int *vector, int N) {
+	int lineNumber = 0;
 	int max = INT_MIN;
 	for (int i = 0; i < N; i++) {
 		if (vector[i] > max) {
 			max = vector[i];
-			rowNumber = i;
+			lineNumber = i;
 		}
 	}
-	return rowNumber;
+	return lineNumber;
 }
 
 void changeRowsMinMax(int **matrix, int N) {
-	int rowMin = getNumberOfRowWithMinValue(getMinVectorByRows(matrix, N), N);
-	int rowMax = getNumberOfRowWithMaxValue(getMaxVectorByRows(matrix, N), N);
-	int *tempRow = new int[];
+	int rowMin = getNumberOfLineWithMinValue(getMinVector(matrix, N, 1), N);
+	int rowMax = getNumberOfLineWithMaxValue(getMaxVector(matrix, N, 1), N);
+	int *tempRow = new int[N];
 	for (int i = 0; i < N; i++) {
 		tempRow[i] = matrix[rowMin][i];
 	}
@@ -138,6 +111,7 @@ void changeRowsMinMax(int **matrix, int N) {
 		matrix[rowMin][i] = matrix[rowMax][i];
 		matrix[rowMax][i] = tempRow[i];
 	}
+	delete[] tempRow;
 }
 
 int _tmain(int argc, _TCHAR* argv[])
@@ -160,7 +134,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	printMatrix(A, N);
 
 	//26
-	int *vectorMin = getMinVectorByRows(A, N);
+	int *vectorMin = getMinVector(A, N, 1);
 	cout << "¬ектор из наименьших значений: ";
 	for (int i = 0; i < N; i++) {
 		cout << vectorMin[i] << " ";
@@ -177,8 +151,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	delete[] vectorMaxMinusMin;
 
 	//28
-	int *vectorMinByRows = getMinVectorByRows(A, N);
-	int rowNumber = getNumberOfRowWithMinValue(vectorMinByRows, N);
+	int *vectorMinByRows = getMinVector(A, N, 1);
+	int rowNumber = getNumberOfLineWithMinValue(vectorMinByRows, N);
 	int sum = 0;
 	for (int i = 0; i < N; i++) {
 		sum += A[rowNumber][i];
@@ -187,8 +161,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	delete[] vectorMinByRows;
 
 	//29
-	int *vectorMinByCols = getMinVectorByCols(A, N);
-	int colNumber = getNumberOfColWithMinValue(vectorMinByCols, N);
+	int *vectorMinByCols = getMinVector(A, N, 0);
+	int colNumber = getNumberOfLineWithMinValue(vectorMinByCols, N);
 	sum = 0;
 	for (int i = 0; i < N; i++) {
 		sum += A[i][colNumber];
@@ -201,6 +175,10 @@ int _tmain(int argc, _TCHAR* argv[])
 	cout << "»сходна€ матрица после смены местами строки, содержащей максимальный элемент, со строкой, содержащей минимальный элемент\n";
 	printMatrix(A, N);
 
+	for (int i = 0; i < N; i++) {
+		delete[] A[i];
+	}
+	delete[] A;
 	return 0;
 }
 
