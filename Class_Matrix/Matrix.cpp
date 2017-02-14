@@ -11,7 +11,7 @@ Matrix::Matrix(int m, int n)
 	fillRandom();
 }
 
-Matrix::Matrix(const Matrix& copy) {
+Matrix::Matrix(const Matrix& copy) { //конструктор копирования
 	M = copy.M;
 	N = copy.N;
 	matrix = new int*[M];
@@ -26,6 +26,7 @@ Matrix::Matrix(const Matrix& copy) {
 }
 
 void Matrix::fillRandom() {
+	srand(time(NULL));
 	for (int i = 0; i < M; i++) {
 		for (int j = 0; j < N; j++) {
 			matrix[i][j] = rand() % 100 + 1;
@@ -45,9 +46,7 @@ double Matrix::average() {
 
 Matrix::~Matrix()
 {
-	cout << "\nДеструктор\n";
-	/* Здесь происходит ошибка
-	for (int i = 0; i < N; i++) {
+	/*for (int i = 0; i < N; i++) {
 		delete[] matrix[i];
 	}
 	delete[] matrix;*/

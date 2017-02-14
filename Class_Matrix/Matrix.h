@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+#include <time.h>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -11,8 +13,8 @@ private:
 public:
 	Matrix(int m = 1, int n = 1);
 	Matrix(const Matrix& copy);
-	void Matrix::fillRandom();
-	double Matrix::average();
+	void fillRandom();
+	double average();
 	friend ostream& operator<<(ostream& os, const Matrix& m);
 	int* operator[](int M);
 	const Matrix& operator=(const Matrix& m);
