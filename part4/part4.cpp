@@ -29,8 +29,7 @@ int* getMinVector(int **matrix, int N, bool byRows) {
 	for (int i = 0; i < N; i++) {
 		int min = INT_MAX;
 		for (int j = 0; j < N; j++) {
-			int m = 0;
-			byRows ? m = matrix[i][j] : m = matrix[j][i];
+			int m = byRows ? matrix[i][j] : matrix[j][i];
 			if (m < min) {
 				min = m;
 			}
@@ -45,8 +44,7 @@ int* getMaxVector(int **matrix, int N, bool byRows) {
 	for (int i = 0; i < N; i++) {
 		int max = INT_MIN;
 		for (int j = 0; j < N; j++) {
-			int m = 0;
-			byRows ? m = matrix[i][j] : m = matrix[j][i];
+			int m = byRows ? matrix[i][j] : matrix[j][i];
 			if (m > max) {
 				max = m;
 			}
@@ -56,7 +54,7 @@ int* getMaxVector(int **matrix, int N, bool byRows) {
 	return vector;
 }
 
-double average(int *vector, int N) {
+double average(const int *vector, int N) {
 	double sum = 0;
 	for (int i = 0; i < N; i++) {
 		sum += vector[i] * 1.0; //умножаю на 1.0 для преобразования в double
@@ -66,8 +64,8 @@ double average(int *vector, int N) {
 
 int* getVectorMaxMinusMin(int **matrix, int N) {
 	int *vector = new int[N];
-	int *vectorMin = getMinVector(matrix, N, 1);
-	int *vectorMax = getMaxVector(matrix, N, 1);
+	const int *vectorMin = getMinVector(matrix, N, 1);
+	const int *vectorMax = getMaxVector(matrix, N, 1);
 	for (int i = 0; i < N; i++) {
 		vector[i] = vectorMax[i] - vectorMin[i];
 	}
@@ -76,7 +74,7 @@ int* getVectorMaxMinusMin(int **matrix, int N) {
 	return vector;
 }
 
-int getNumberOfLineWithMinValue(int *vector, int N) {
+int getNumberOfLineWithMinValue(const int *vector, int N) {
 	int lineNumber = 0;
 	int min = INT_MAX;
 	for (int i = 0; i < N; i++) {
@@ -88,7 +86,7 @@ int getNumberOfLineWithMinValue(int *vector, int N) {
 	return lineNumber;
 }
 
-int getNumberOfLineWithMaxValue(int *vector, int N) {
+int getNumberOfLineWithMaxValue(const int *vector, int N) {
 	int lineNumber = 0;
 	int max = INT_MIN;
 	for (int i = 0; i < N; i++) {
@@ -101,8 +99,8 @@ int getNumberOfLineWithMaxValue(int *vector, int N) {
 }
 
 void changeRowsMinMax(int **matrix, int N) {
-	int rowMin = getNumberOfLineWithMinValue(getMinVector(matrix, N, 1), N);
-	int rowMax = getNumberOfLineWithMaxValue(getMaxVector(matrix, N, 1), N);
+	const int rowMin = getNumberOfLineWithMinValue(getMinVector(matrix, N, 1), N);
+	const int rowMax = getNumberOfLineWithMaxValue(getMaxVector(matrix, N, 1), N);
 	int *tempRow = new int[N];
 	for (int i = 0; i < N; i++) {
 		tempRow[i] = matrix[rowMin][i];
@@ -134,7 +132,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	printMatrix(A, N);
 
 	//26
-	int *vectorMin = getMinVector(A, N, 1);
+	const int *vectorMin = getMinVector(A, N, 1);
 	cout << "Вектор из наименьших значений: ";
 	for (int i = 0; i < N; i++) {
 		cout << vectorMin[i] << " ";
@@ -143,7 +141,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	delete[] vectorMin;
 
 	//27
-	int *vectorMaxMinusMin = getVectorMaxMinusMin(A, N);
+	const int *vectorMaxMinusMin = getVectorMaxMinusMin(A, N);
 	cout << "\nВектор из разностей наибольших и наименьших значений элементов строк: ";
 	for (int i = 0; i < N; i++) {
 		cout << vectorMaxMinusMin[i] << " ";
@@ -151,8 +149,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	delete[] vectorMaxMinusMin;
 
 	//28
-	int *vectorMinByRows = getMinVector(A, N, 1);
-	int rowNumber = getNumberOfLineWithMinValue(vectorMinByRows, N);
+	const int *vectorMinByRows = getMinVector(A, N, 1);
+	const int rowNumber = getNumberOfLineWithMinValue(vectorMinByRows, N);
 	int sum = 0;
 	for (int i = 0; i < N; i++) {
 		sum += A[rowNumber][i];
@@ -161,8 +159,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	delete[] vectorMinByRows;
 
 	//29
-	int *vectorMinByCols = getMinVector(A, N, 0);
-	int colNumber = getNumberOfLineWithMinValue(vectorMinByCols, N);
+	const int *vectorMinByCols = getMinVector(A, N, 0);
+	const int colNumber = getNumberOfLineWithMinValue(vectorMinByCols, N);
 	sum = 0;
 	for (int i = 0; i < N; i++) {
 		sum += A[i][colNumber];
